@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 延迟加载 -->
+	<settings>
+	   <setting name="lazyLoadingEnabled" value="true"/>
+	   <setting name="aggressiveLazyLoading" value="true"/>
+	   <!-- <setting name="cacheEnabled" value="false"/> -->
+	</settings>
+	
+	<typeAliases>
+	   <!-- 单个指定别名 -->
+	   <!-- <typeAlias type="com.offcn3.bean.User" alias="user"/> -->
+	   <!-- 批量指定别名,默认别名是类名或者类名的首字母小写user/User -->
+	   <package name="com.teaching.bean"/>
+	    <package name="com.teaching.vo"/> 
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<property name="helperDialect" value="mysql"/>
+		</plugin>
+	</plugins>
+	<mappers>
+		<!-- 批量配置：满足映射文件和接口同包同名 -->
+		<package name="com.teaching.dao"/>
+	</mappers>
+</configuration>

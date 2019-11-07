@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teaching.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.teaching.bean.Student" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="classid" property="classid" jdbcType="INTEGER" />
+    <result column="usertype" property="usertype" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="loginname" property="loginname" jdbcType="VARCHAR" />
+    <result column="files" property="files" jdbcType="VARCHAR" />
+    <result column="majid" property="majid" jdbcType="INTEGER" />
+    <result column="pre1" property="pre1" jdbcType="INTEGER" />
+    <result column="pre2" property="pre2" jdbcType="VARCHAR" />
+    <result column="pre3" property="pre3" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, sex, address, tel, classid, usertype, password, loginname, files, majid, 
+    pre1, pre2, pre3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.teaching.bean.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.teaching.bean.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.teaching.bean.Student" >
+    insert into student (id, name, sex, 
+      address, tel, classid, 
+      usertype, password, loginname, 
+      files, majid, pre1, 
+      pre2, pre3)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{classid,jdbcType=INTEGER}, 
+      #{usertype,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, 
+      #{files,jdbcType=VARCHAR}, #{majid,jdbcType=INTEGER}, #{pre1,jdbcType=INTEGER}, 
+      #{pre2,jdbcType=VARCHAR}, #{pre3,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.teaching.bean.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="classid != null" >
+        classid,
+      </if>
+      <if test="usertype != null" >
+        usertype,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="loginname != null" >
+        loginname,
+      </if>
+      <if test="files != null" >
+        files,
+      </if>
+      <if test="majid != null" >
+        majid,
+      </if>
+      <if test="pre1 != null" >
+        pre1,
+      </if>
+      <if test="pre2 != null" >
+        pre2,
+      </if>
+      <if test="pre3 != null" >
+        pre3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="files != null" >
+        #{files,jdbcType=VARCHAR},
+      </if>
+      <if test="majid != null" >
+        #{majid,jdbcType=INTEGER},
+      </if>
+      <if test="pre1 != null" >
+        #{pre1,jdbcType=INTEGER},
+      </if>
+      <if test="pre2 != null" >
+        #{pre2,jdbcType=VARCHAR},
+      </if>
+      <if test="pre3 != null" >
+        #{pre3,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.teaching.bean.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classid != null" >
+        classid = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.usertype != null" >
+        usertype = #{record.usertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginname != null" >
+        loginname = #{record.loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.files != null" >
+        files = #{record.files,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majid != null" >
+        majid = #{record.majid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pre1 != null" >
+        pre1 = #{record.pre1,jdbcType=INTEGER},
+      </if>
+      <if test="record.pre2 != null" >
+        pre2 = #{record.pre2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pre3 != null" >
+        pre3 = #{record.pre3,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      classid = #{record.classid,jdbcType=INTEGER},
+      usertype = #{record.usertype,jdbcType=INTEGER},
+      password = #{record.password,jdbcType=VARCHAR},
+      loginname = #{record.loginname,jdbcType=VARCHAR},
+      files = #{record.files,jdbcType=VARCHAR},
+      majid = #{record.majid,jdbcType=INTEGER},
+      pre1 = #{record.pre1,jdbcType=INTEGER},
+      pre2 = #{record.pre2,jdbcType=VARCHAR},
+      pre3 = #{record.pre3,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.teaching.bean.Student" >
+    update student
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null" >
+        classid = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="usertype != null" >
+        usertype = #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        loginname = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="files != null" >
+        files = #{files,jdbcType=VARCHAR},
+      </if>
+      <if test="majid != null" >
+        majid = #{majid,jdbcType=INTEGER},
+      </if>
+      <if test="pre1 != null" >
+        pre1 = #{pre1,jdbcType=INTEGER},
+      </if>
+      <if test="pre2 != null" >
+        pre2 = #{pre2,jdbcType=VARCHAR},
+      </if>
+      <if test="pre3 != null" >
+        pre3 = #{pre3,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.teaching.bean.Student" >
+    update student
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      classid = #{classid,jdbcType=INTEGER},
+      usertype = #{usertype,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      loginname = #{loginname,jdbcType=VARCHAR},
+      files = #{files,jdbcType=VARCHAR},
+      majid = #{majid,jdbcType=INTEGER},
+      pre1 = #{pre1,jdbcType=INTEGER},
+      pre2 = #{pre2,jdbcType=VARCHAR},
+      pre3 = #{pre3,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getStu" resultType="StuExt" parameterType="map">
+		select s.*,c.name cname from student s,classes c 
+		 <where>
+			s.classid=c.id
+			<if test="name !=null and name!=''">
+				and s.name like '%${name}%'
+			</if>
+			<if test="majid !=null and majid!=''">
+				and s.majid = #{majid}
+			</if>
+			<if test="claid !=null and claid!=''">
+				and classid = #{claid}
+			</if>
+
+		</where> 
+	</select>
+	
+	<select id="getXx" resultType="CtcView" parameterType="int">
+		select ctcn.couid,ctcn.tid,c.name couname,t.name tename
+		from(select * from ctc where type=1 and claid=1 group by tid,couid)
+		ctcn,course c,
+		teacher t where ctcn.tid=t.id and ctcn.couid=c.id
+	</select>
+	
+	<select id="getkb" parameterType="student" resultType="CtcView">
+		select tmp.weekid,tmp.timeid,t.name tename,c.name couname,'选修' as typestr  
+		from (select ctc.weekid,ctc.timeid,ctc.tid,ctc.couid,sc.sid from sc left join ctc on 
+		sc.cid=ctc.couid and 
+		sc.tid=ctc.tid) tmp,teacher t,course c where tmp.couid=c.id and tmp.tid=t.id 
+		and sid=#{id}
+		union
+        select weekid,timeid,t.name tename,c.name couname,'必修' as typestr from ctc,course c,teacher 
+
+		t where ctc.couid=c.id and ctc.tid=t.id and ctc.type=0 and ctc.claid=#{classid}
+	</select>
+	
+	<select id="getGrade" parameterType="int" resultType="GradeView">
+  		select g.kgrade,g.pgrade,g.zgrade,c.type coutype,c.name couname,t.name teaname 
+  		from grade g,student s,course c,teacher t 
+  		where g.sid=s.id and g.cid=c.id and g.tid =t.id and g.sid=#{sid}
+  	</select>
+</mapper>

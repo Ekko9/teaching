@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teaching.dao.CtcMapper" >
+  <resultMap id="BaseResultMap" type="com.teaching.bean.Ctc" >
+    <id column="tid" property="tid" jdbcType="INTEGER" />
+    <id column="weekid" property="weekid" jdbcType="INTEGER" />
+    <id column="timeid" property="timeid" jdbcType="INTEGER" />
+    <result column="couid" property="couid" jdbcType="INTEGER" />
+    <result column="claid" property="claid" jdbcType="INTEGER" />
+    <result column="majid" property="majid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tid, weekid, timeid, couid, claid, majid, type, cname, tname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.teaching.bean.CtcExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ctc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.teaching.bean.CtcKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ctc
+    where tid = #{tid,jdbcType=INTEGER}
+      and weekid = #{weekid,jdbcType=INTEGER}
+      and timeid = #{timeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.teaching.bean.CtcKey" >
+    delete from ctc
+    where tid = #{tid,jdbcType=INTEGER}
+      and weekid = #{weekid,jdbcType=INTEGER}
+      and timeid = #{timeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.teaching.bean.CtcExample" >
+    delete from ctc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.teaching.bean.Ctc" >
+    insert into ctc (tid, weekid, timeid, 
+      couid, claid, majid, 
+      type, cname, tname)
+    values (#{tid,jdbcType=INTEGER}, #{weekid,jdbcType=INTEGER}, #{timeid,jdbcType=INTEGER}, 
+      #{couid,jdbcType=INTEGER}, #{claid,jdbcType=INTEGER}, #{majid,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.teaching.bean.Ctc" >
+    insert into ctc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="weekid != null" >
+        weekid,
+      </if>
+      <if test="timeid != null" >
+        timeid,
+      </if>
+      <if test="couid != null" >
+        couid,
+      </if>
+      <if test="claid != null" >
+        claid,
+      </if>
+      <if test="majid != null" >
+        majid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="tname != null" >
+        tname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="weekid != null" >
+        #{weekid,jdbcType=INTEGER},
+      </if>
+      <if test="timeid != null" >
+        #{timeid,jdbcType=INTEGER},
+      </if>
+      <if test="couid != null" >
+        #{couid,jdbcType=INTEGER},
+      </if>
+      <if test="claid != null" >
+        #{claid,jdbcType=INTEGER},
+      </if>
+      <if test="majid != null" >
+        #{majid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null" >
+        #{tname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.teaching.bean.CtcExample" resultType="java.lang.Integer" >
+    select count(*) from ctc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ctc
+    <set >
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.weekid != null" >
+        weekid = #{record.weekid,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeid != null" >
+        timeid = #{record.timeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.couid != null" >
+        couid = #{record.couid,jdbcType=INTEGER},
+      </if>
+      <if test="record.claid != null" >
+        claid = #{record.claid,jdbcType=INTEGER},
+      </if>
+      <if test="record.majid != null" >
+        majid = #{record.majid,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tname != null" >
+        tname = #{record.tname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ctc
+    set tid = #{record.tid,jdbcType=INTEGER},
+      weekid = #{record.weekid,jdbcType=INTEGER},
+      timeid = #{record.timeid,jdbcType=INTEGER},
+      couid = #{record.couid,jdbcType=INTEGER},
+      claid = #{record.claid,jdbcType=INTEGER},
+      majid = #{record.majid,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      tname = #{record.tname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.teaching.bean.Ctc" >
+    update ctc
+    <set >
+      <if test="couid != null" >
+        couid = #{couid,jdbcType=INTEGER},
+      </if>
+      <if test="claid != null" >
+        claid = #{claid,jdbcType=INTEGER},
+      </if>
+      <if test="majid != null" >
+        majid = #{majid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null" >
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+      and weekid = #{weekid,jdbcType=INTEGER}
+      and timeid = #{timeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.teaching.bean.Ctc" >
+    update ctc
+    set couid = #{couid,jdbcType=INTEGER},
+      claid = #{claid,jdbcType=INTEGER},
+      majid = #{majid,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      cname = #{cname,jdbcType=VARCHAR},
+      tname = #{tname,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+      and weekid = #{weekid,jdbcType=INTEGER}
+      and timeid = #{timeid,jdbcType=INTEGER}
+  </update>
+  <!-- 批量插入 -->
+	<insert id="savectc" parameterType="java.util.List">
+		insert into ctc 
+		(tid,weekid,timeid,couid,claid,majid,type)
+		values
+		<foreach collection="list" item="ctc" separator=",">
+			(#{ctc.tid,jdbcType=INTEGER},#{ctc.weekid,jdbcType=INTEGER},#{ctc.timeid,jdbcType=INTEGER},
+			 #{ctc.couid,jdbcType=INTEGER},#{ctc.claid,jdbcType=INTEGER},#{ctc.majid,jdbcType=INTEGER},
+			 #{ctc.type,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	
+	<select id="getPk" parameterType="int" resultType="CtcView">
+		select weekid,timeid,t.name tename, c.name couname,ctc.type
+		from ctc,teacher t, course c
+		where ctc.claid=#{cid} and ctc.tid = t.id and ctc.couid=c.id
+		
+	
+	</select>
+</mapper>
